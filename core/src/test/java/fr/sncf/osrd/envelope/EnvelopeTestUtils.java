@@ -9,7 +9,11 @@ import fr.sncf.osrd.envelope.constraint.SpeedFloor;
 import org.junit.jupiter.api.Assertions;
 
 public class EnvelopeTestUtils {
-    public static final class EnvelopeTestMeta extends EnvelopePartMeta {
+    public static class TestEnvelopeAttr implements EnvelopeAttr {
+    }
+
+    public static EnvelopePartMeta makeTestMetadata() {
+        return new EnvelopePartMeta(TestEnvelopeAttr.class, new TestEnvelopeAttr());
     }
 
     static EnvelopePart buildContinuous(

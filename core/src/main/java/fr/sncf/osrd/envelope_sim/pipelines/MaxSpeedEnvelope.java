@@ -1,33 +1,19 @@
 package fr.sncf.osrd.envelope_sim.pipelines;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import fr.sncf.osrd.envelope.*;
 import fr.sncf.osrd.envelope.constraint.ConstrainedEnvelopePartBuilder;
 import fr.sncf.osrd.envelope.constraint.EnvelopeCeiling;
-import fr.sncf.osrd.envelope.constraint.SpeedCeiling;
 import fr.sncf.osrd.envelope.constraint.SpeedFloor;
+import fr.sncf.osrd.envelope_sim.EnvelopeProfile;
 import fr.sncf.osrd.envelope_sim.PhysicsPath;
 import fr.sncf.osrd.envelope_sim.PhysicsRollingStock;
+import fr.sncf.osrd.envelope_sim.StopMeta;
 import fr.sncf.osrd.envelope_sim.overlays.EnvelopeDeceleration;
 
 /** Max speed envelope = MRSP + braking curves
  * It is the max speed allowed at any given point, ignoring allowances
  */
 public class MaxSpeedEnvelope {
-
-    public static final class DecelerationMeta extends EnvelopePartMeta {}
-
-    @SuppressFBWarnings({"URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD"})
-    public static final class StopMeta extends EnvelopePartMeta {
-        public final int stopIndex;
-
-        public StopMeta(int stopIndex) {
-            this.stopIndex = stopIndex;
-        }
-    }
-
-    public static final EnvelopePartMeta DECELERATION = new DecelerationMeta();
-
     static boolean increase(double prevPos, double prevSpeed, double nextPos, double nextSpeed) {
         // Works for both accelerations (forwards) and decelerations (backwards)
         return prevSpeed < nextSpeed;
@@ -44,7 +30,7 @@ public class MaxSpeedEnvelope {
         var cursor = EnvelopeCursor.backward(mrsp);
         while (cursor.findPartTransition(MaxSpeedEnvelope::increase)) {
             var partBuilder = new EnvelopePartBuilder();
-            partBuilder.setEnvelopePartMeta(DECELERATION);
+            partBuilder.setEnvelopePartMeta(new EnvelopePartMeta(EnvelopeProfile.class, EnvelopeProfile.BRAKING));
             var overlayBuilder = new ConstrainedEnvelopePartBuilder(
                     partBuilder,
                     new SpeedFloor(0),
@@ -80,7 +66,10 @@ public class MaxSpeedEnvelope {
                         i, stopPosition, path.getLength()
                 ));
             var partBuilder = new EnvelopePartBuilder();
-            partBuilder.setEnvelopePartMeta(new StopMeta(i));
+            var attrs = EnvelopePartMeta.makeAttrMap();
+            attrs.put(EnvelopeProfile.class, EnvelopeProfile.BRAKING);
+            attrs.put(StopMeta.class, new StopMeta(i));
+            partBuilder.setEnvelopePartMeta(new EnvelopePartMeta(attrs));
             var overlayBuilder = new ConstrainedEnvelopePartBuilder(
                     partBuilder,
                     new SpeedFloor(0),

@@ -2,17 +2,9 @@ package fr.sncf.osrd.envelope_sim.overlays;
 
 import fr.sncf.osrd.envelope.EnvelopePartMeta;
 import fr.sncf.osrd.envelope.InteractiveEnvelopePartConsumer;
-import fr.sncf.osrd.envelope_sim.Action;
-import fr.sncf.osrd.envelope_sim.PhysicsPath;
-import fr.sncf.osrd.envelope_sim.PhysicsRollingStock;
-import fr.sncf.osrd.envelope_sim.TrainPhysicsIntegrator;
+import fr.sncf.osrd.envelope_sim.*;
 
 public class EnvelopeCoasting {
-    public static final class CoastingMeta extends EnvelopePartMeta {
-    }
-
-    public static final EnvelopePartMeta COASTING = new CoastingMeta();
-
     /** Generate a coasting curve overlay */
     public static void coast(
             PhysicsRollingStock rollingStock,
@@ -24,6 +16,7 @@ public class EnvelopeCoasting {
             double directionSign
     ) {
         consumer.initEnvelopePart(startPosition, startSpeed, directionSign);
+        consumer.setEnvelopePartMeta(new EnvelopePartMeta(EnvelopeProfile.class, EnvelopeProfile.COASTING));
         double position = startPosition;
         double speed = startSpeed;
         while (true) {

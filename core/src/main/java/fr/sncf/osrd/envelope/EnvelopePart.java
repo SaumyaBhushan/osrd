@@ -17,7 +17,7 @@ import java.util.Arrays;
 public final class EnvelopePart {
     // region INTRINSIC DATA FIELDS
 
-    /** Metadata about his envelope part */
+    /** Metadata about this envelope part */
     public final EnvelopePartMeta meta;
 
     /* !!! These arrays must stay private, as even public final arrays are mutable !!! */
@@ -224,6 +224,12 @@ public final class EnvelopePart {
 
     public double getStepTime(int stepIndex) {
         return timeDeltas[stepIndex];
+    }
+
+    /** Return the given metadata attribute */
+    public <T extends EnvelopeAttr> T getAttr(Class<T> attrType) {
+        assert meta != null;
+        return meta.get(attrType);
     }
 
     // endregion

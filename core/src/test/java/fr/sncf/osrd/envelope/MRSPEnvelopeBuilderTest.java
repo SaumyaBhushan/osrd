@@ -1,14 +1,14 @@
 package fr.sncf.osrd.envelope;
 
+import static fr.sncf.osrd.envelope.EnvelopeTestUtils.makeTestMetadata;
 import static org.junit.jupiter.api.Assertions.*;
 
-import fr.sncf.osrd.envelope.EnvelopeTestUtils.EnvelopeTestMeta;
 import org.junit.jupiter.api.Test;
 
 class MRSPEnvelopeBuilderTest {
-    public static final EnvelopePartMeta meta1 = new EnvelopeTestMeta();
-    public static final EnvelopePartMeta meta2 = new EnvelopeTestMeta();
-    public static final EnvelopePartMeta meta3 = new EnvelopeTestMeta();
+    public static final EnvelopePartMeta meta1 = makeTestMetadata();
+    public static final EnvelopePartMeta meta2 = makeTestMetadata();
+    public static final EnvelopePartMeta meta3 = makeTestMetadata();
 
 
     public static EnvelopePart makeFlatPart(EnvelopePartMeta meta, double beginPos, double endPos, double speed) {

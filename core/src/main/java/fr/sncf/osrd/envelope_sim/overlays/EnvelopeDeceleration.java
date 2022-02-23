@@ -1,10 +1,8 @@
 package fr.sncf.osrd.envelope_sim.overlays;
 
+import fr.sncf.osrd.envelope.EnvelopePartMeta;
 import fr.sncf.osrd.envelope.InteractiveEnvelopePartConsumer;
-import fr.sncf.osrd.envelope_sim.Action;
-import fr.sncf.osrd.envelope_sim.PhysicsPath;
-import fr.sncf.osrd.envelope_sim.PhysicsRollingStock;
-import fr.sncf.osrd.envelope_sim.TrainPhysicsIntegrator;
+import fr.sncf.osrd.envelope_sim.*;
 
 public class EnvelopeDeceleration {
     /** Generate a deceleration curve overlay */
@@ -17,8 +15,8 @@ public class EnvelopeDeceleration {
             InteractiveEnvelopePartConsumer consumer,
             double directionSign
     ) {
-        var initStatus = consumer.initEnvelopePart(startPosition, startSpeed, directionSign);
-        assert initStatus;
+        consumer.initEnvelopePart(startPosition, startSpeed, directionSign);
+        consumer.setEnvelopePartMeta(new EnvelopePartMeta(EnvelopeProfile.class, EnvelopeProfile.BRAKING));
         double position = startPosition;
         double speed = startSpeed;
         while (true) {

@@ -1,8 +1,8 @@
 package fr.sncf.osrd.envelope;
 
+import static fr.sncf.osrd.envelope.EnvelopeTestUtils.makeTestMetadata;
 import static org.junit.jupiter.api.Assertions.*;
 
-import fr.sncf.osrd.envelope.EnvelopeTestUtils.EnvelopeTestMeta;
 import fr.sncf.osrd.envelope.constraint.ConstrainedEnvelopePartBuilder;
 import fr.sncf.osrd.envelope.constraint.EnvelopeCeiling;
 import org.junit.jupiter.api.Test;
@@ -123,7 +123,7 @@ public class EnvelopeOverlayTest {
     @ParameterizedTest
     @ValueSource(booleans = {false, true})
     void testSymmetricOverlay(boolean backwardDir) {
-        var testMeta = new EnvelopeTestMeta();
+        var testMeta = makeTestMetadata();
         var constSpeedPart = EnvelopePart.generateTimes(
                 null,
                 new double[]{0, 3.5, 8},

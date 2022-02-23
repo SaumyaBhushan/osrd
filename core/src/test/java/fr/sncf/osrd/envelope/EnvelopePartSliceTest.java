@@ -1,16 +1,16 @@
 package fr.sncf.osrd.envelope;
 
 import static fr.sncf.osrd.envelope.EnvelopeTestUtils.assertEquals;
+import static fr.sncf.osrd.envelope.EnvelopeTestUtils.makeTestMetadata;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import fr.sncf.osrd.envelope.EnvelopeTestUtils.EnvelopeTestMeta;
 import org.junit.jupiter.api.Test;
 
 public class EnvelopePartSliceTest {
     @Test
     void sliceIndex() {
-        var testMeta = new EnvelopeTestMeta();
+        var testMeta = makeTestMetadata();
         var ep1 = EnvelopePart.generateTimes(
                 testMeta,
                 new double[] {1.5, 3, 5},
@@ -28,7 +28,7 @@ public class EnvelopePartSliceTest {
 
     @Test
     void sliceIndexFull() {
-        var testMeta = new EnvelopeTestMeta();
+        var testMeta = makeTestMetadata();
         var ep1 = EnvelopePart.generateTimes(
                 testMeta,
                 new double[] {1.5, 3, 5},
@@ -41,7 +41,7 @@ public class EnvelopePartSliceTest {
 
     @Test
     void sliceIndexEmpty() {
-        var testMeta = new EnvelopeTestMeta();
+        var testMeta = makeTestMetadata();
         var ep1 = EnvelopePart.generateTimes(
                 testMeta,
                 new double[] {1.5, 3, 5},
@@ -53,7 +53,7 @@ public class EnvelopePartSliceTest {
 
     @Test
     void sliceOffsetEmpty() {
-        var testMeta = new EnvelopeTestMeta();
+        var testMeta = makeTestMetadata();
         var ep1 = EnvelopePart.generateTimes(
                 testMeta,
                 new double[] {1.5, 3, 5},
@@ -65,7 +65,7 @@ public class EnvelopePartSliceTest {
 
     @Test
     void sliceOffsetFull() {
-        var testMeta = new EnvelopeTestMeta();
+        var testMeta = makeTestMetadata();
         var ep1 = EnvelopePart.generateTimes(
                 testMeta,
                 new double[] {1.5, 3, 5},
@@ -77,7 +77,7 @@ public class EnvelopePartSliceTest {
 
     @Test
     void sliceOffsetInterpolate() {
-        var testMeta = new EnvelopeTestMeta();
+        var testMeta = makeTestMetadata();
         var ep1 = EnvelopePart.generateTimes(
                 testMeta,
                 new double[] {0, 3},

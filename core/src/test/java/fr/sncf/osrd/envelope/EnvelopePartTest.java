@@ -1,8 +1,8 @@
 package fr.sncf.osrd.envelope;
 
+import static fr.sncf.osrd.envelope.EnvelopeTestUtils.makeTestMetadata;
 import static org.junit.jupiter.api.Assertions.*;
 
-import fr.sncf.osrd.envelope.EnvelopeTestUtils.EnvelopeTestMeta;
 import org.junit.jupiter.api.Test;
 
 class EnvelopePartTest {
@@ -57,7 +57,7 @@ class EnvelopePartTest {
                 new double[] {3, 4, 4}
         );
         var ep3 = EnvelopePart.generateTimes(
-                new EnvelopeTestMeta(),
+                makeTestMetadata(),
                 new double[] {1.5, 3, 5},
                 new double[] {3, 4, 4}
         );

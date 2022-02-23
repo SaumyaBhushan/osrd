@@ -4,27 +4,35 @@ import static fr.sncf.osrd.envelope.EnvelopeShape.*;
 
 import fr.sncf.osrd.envelope.*;
 import fr.sncf.osrd.envelope_sim.pipelines.MaxSpeedEnvelope;
+import fr.sncf.osrd.envelope_sim_infra.MRSP;
 import fr.sncf.osrd.train.TestTrains;
 import org.junit.jupiter.api.Test;
 
 
 public class MaxSpeedEnvelopeTest {
-
     static final double TIME_STEP = 4;
+
+    public static EnvelopePartMeta makeSpeedLimitMeta() {
+        var attrs = EnvelopePartMeta.makeAttrMap();
+        attrs.put(EnvelopeProfile.class, EnvelopeProfile.CONSTANT_SPEED);
+        attrs.put(MRSP.LimitKind.class, MRSP.LimitKind.SPEED_LIMIT);
+        return new EnvelopePartMeta(attrs);
+    }
 
     /** Builds a constant speed MRSP for a given path */
     public static Envelope makeSimpleMRSP(PhysicsRollingStock rollingStock,
                                           PhysicsPath path,
                                           double speed) {
-        var builder = new MRSPEnvelopeBuilder();
+        var meta = makeSpeedLimitMeta();
         var maxSpeedRS = rollingStock.getMaxSpeed();
+        var builder = new MRSPEnvelopeBuilder();
         builder.addPart(
                 EnvelopePart.generateTimes(
-                        null, new double[] {0, path.getLength()}, new double[] {maxSpeedRS, maxSpeedRS}
+                        meta, new double[] {0, path.getLength()}, new double[] {maxSpeedRS, maxSpeedRS}
                 )
         );
         builder.addPart(
-                EnvelopePart.generateTimes(null, new double[] {0, path.getLength()}, new double[] {speed, speed})
+                EnvelopePart.generateTimes(meta, new double[] {0, path.getLength()}, new double[] {speed, speed})
         );
         return builder.build();
     }
@@ -32,26 +40,27 @@ public class MaxSpeedEnvelopeTest {
     /** Builds a funky MRSP for a given path */
     public static Envelope makeComplexMRSP(PhysicsRollingStock rollingStock,
                                            PhysicsPath path) {
+        var meta = makeSpeedLimitMeta();
         assert path.getLength() >= 100000 : "Path length must be greater than 100km to generate a complex MRSP";
         var builder = new MRSPEnvelopeBuilder();
         var maxSpeedRS = rollingStock.getMaxSpeed();
         builder.addPart(
-                EnvelopePart.generateTimes(null, new double[] {0, path.getLength()},
+                EnvelopePart.generateTimes(meta, new double[] {0, path.getLength()},
                         new double[] {maxSpeedRS, maxSpeedRS}));
         builder.addPart(
-                EnvelopePart.generateTimes(null, new double[] {0, 10000 }, new double[] {44.4, 44.4}));
+                EnvelopePart.generateTimes(meta, new double[] {0, 10000 }, new double[] {44.4, 44.4}));
         builder.addPart(
-                EnvelopePart.generateTimes(null, new double[] {10000, 20000 }, new double[] {64.4, 64.4}));
+                EnvelopePart.generateTimes(meta, new double[] {10000, 20000 }, new double[] {64.4, 64.4}));
         builder.addPart(
-                EnvelopePart.generateTimes(null, new double[] {20000, 50000 }, new double[] {54.4, 54.4}));
+                EnvelopePart.generateTimes(meta, new double[] {20000, 50000 }, new double[] {54.4, 54.4}));
         builder.addPart(
-                EnvelopePart.generateTimes(null, new double[] {50000, 55000 }, new double[] {14.4, 14.4}));
+                EnvelopePart.generateTimes(meta, new double[] {50000, 55000 }, new double[] {14.4, 14.4}));
         builder.addPart(
-                EnvelopePart.generateTimes(null, new double[] {55000, 70000 }, new double[] {54.4, 54.4}));
+                EnvelopePart.generateTimes(meta, new double[] {55000, 70000 }, new double[] {54.4, 54.4}));
         builder.addPart(
-                EnvelopePart.generateTimes(null, new double[] {70000, 75000 }, new double[] {74.4, 74.4}));
+                EnvelopePart.generateTimes(meta, new double[] {70000, 75000 }, new double[] {74.4, 74.4}));
         builder.addPart(
-                EnvelopePart.generateTimes(null, new double[] {75000, path.getLength() }, new double[] {44.4, 44.4}));
+                EnvelopePart.generateTimes(meta, new double[] {75000, path.getLength() }, new double[] {44.4, 44.4}));
         return builder.build();
     }
 

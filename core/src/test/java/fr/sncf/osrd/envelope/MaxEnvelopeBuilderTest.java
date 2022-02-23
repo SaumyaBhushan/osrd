@@ -1,13 +1,13 @@
 package fr.sncf.osrd.envelope;
 
+import static fr.sncf.osrd.envelope.EnvelopeTestUtils.makeTestMetadata;
 import static org.junit.jupiter.api.Assertions.*;
 
-import fr.sncf.osrd.envelope.EnvelopeTestUtils.EnvelopeTestMeta;
 import org.junit.jupiter.api.Test;
 
 class MaxEnvelopeBuilderTest {
-    public static final EnvelopePartMeta meta1 = new EnvelopeTestMeta();
-    public static final EnvelopePartMeta meta2 = new EnvelopeTestMeta();
+    public static final EnvelopePartMeta meta1 = makeTestMetadata();
+    public static final EnvelopePartMeta meta2 = makeTestMetadata();
 
     @Test
     void parabolaCeiling() {

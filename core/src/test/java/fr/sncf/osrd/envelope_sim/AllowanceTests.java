@@ -12,11 +12,8 @@ import com.carrotsearch.hppc.DoubleArrayList;
 import fr.sncf.osrd.envelope.Envelope;
 import fr.sncf.osrd.envelope.EnvelopeShape;
 import fr.sncf.osrd.envelope.EnvelopeTransitions;
-import fr.sncf.osrd.envelope_sim.allowances.AllowanceDistribution;
 import fr.sncf.osrd.envelope_sim.allowances.AllowanceValue;
 import fr.sncf.osrd.envelope_sim.allowances.MarecoAllowance;
-import fr.sncf.osrd.envelope_sim.pipelines.MaxEffortEnvelope;
-import fr.sncf.osrd.envelope_sim.pipelines.MaxSpeedEnvelope;
 import fr.sncf.osrd.train.TestTrains;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -425,7 +422,7 @@ public class AllowanceTests {
         var maxEffortEnvelope = makeComplexMaxEffortEnvelope(testRollingStock, testPath, stops);
         double start = 0;
         for (var part : maxEffortEnvelope) {
-            if (part.meta instanceof MaxSpeedEnvelope.DecelerationMeta) {
+            if (part.meta.get(EnvelopeProfile.class) == EnvelopeProfile.BRAKING) {
                 start = (part.getBeginPos() + part.getEndPos()) / 2;
                 break;
             }
@@ -447,7 +444,7 @@ public class AllowanceTests {
         var maxEffortEnvelope = makeComplexMaxEffortEnvelope(testRollingStock, testPath, stops);
         double end = 0;
         for (var part : maxEffortEnvelope) {
-            if (part.meta instanceof MaxEffortEnvelope.AccelerationMeta) {
+            if (part.meta.get(EnvelopeProfile.class) == EnvelopeProfile.ACCELERATING) {
                 end = (part.getBeginPos() + part.getEndPos()) / 2;
             }
         }

@@ -1,10 +1,8 @@
 package fr.sncf.osrd.envelope_sim.overlays;
 
+import fr.sncf.osrd.envelope.EnvelopePartMeta;
 import fr.sncf.osrd.envelope.InteractiveEnvelopePartConsumer;
-import fr.sncf.osrd.envelope_sim.Action;
-import fr.sncf.osrd.envelope_sim.PhysicsPath;
-import fr.sncf.osrd.envelope_sim.PhysicsRollingStock;
-import fr.sncf.osrd.envelope_sim.TrainPhysicsIntegrator;
+import fr.sncf.osrd.envelope_sim.*;
 
 public class EnvelopeAcceleration {
     /** Accelerate, storing the resulting steps into consumer */
@@ -18,6 +16,7 @@ public class EnvelopeAcceleration {
             double directionSign
     ) {
         consumer.initEnvelopePart(startPosition, startSpeed, directionSign);
+        consumer.setEnvelopePartMeta(new EnvelopePartMeta(EnvelopeProfile.class, EnvelopeProfile.ACCELERATING));
         double position = startPosition;
         double speed = startSpeed;
         while (true) {
