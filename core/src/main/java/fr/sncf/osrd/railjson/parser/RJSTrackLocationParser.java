@@ -8,7 +8,7 @@ import fr.sncf.osrd.utils.TrackSectionLocation;
 
 public class RJSTrackLocationParser {
     /** Parse RJS track location */
-    public static TrackSectionLocation parse(Infra infra, RJSTrackLocation location) throws InvalidSchedule {
+    public static TrackSectionLocation parse(Infra infra, RJSTrackLocation location) {
         var trackSectionID = location.trackSection.id;
         var trackSection = infra.trackGraph.trackSectionMap.get(trackSectionID);
         if (trackSection == null)

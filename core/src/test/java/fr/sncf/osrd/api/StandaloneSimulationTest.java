@@ -37,11 +37,8 @@ class StandaloneSimulationTest extends ApiTest {
         return trainPath;
     }
 
-    public static StandaloneSimulationResult runStandaloneSimulation(StandaloneSimulationRequest request) throws
-            InvalidRollingStock,
-            InvalidSchedule,
-            IOException,
-            InvalidInfraException {
+    public static StandaloneSimulationResult runStandaloneSimulation(StandaloneSimulationRequest request)
+            throws IOException {
         // serialize the request
         var requestBody = StandaloneSimulationEndpoint.adapterRequest.toJson(request);
 

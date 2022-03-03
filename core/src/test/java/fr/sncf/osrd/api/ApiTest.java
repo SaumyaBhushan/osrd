@@ -20,7 +20,7 @@ public class ApiTest {
      * Setup infra handler mock
      */
     @BeforeEach
-    public void setUp() throws InfraLoadException, InterruptedException {
+    public void setUp() throws InterruptedException {
         ArgumentCaptor<String> argument = ArgumentCaptor.forClass(String.class);
         when(infraHandlerMock.load(argument.capture())).thenAnswer(
                 invocation ->

@@ -10,7 +10,7 @@ import java.util.*;
 
 public class RJSRollingStockParser {
     /** Parse the RailJSON  rolling stock into something the backend can work with */
-    public static RollingStock parse(RJSRollingStock rjsRollingStock) throws InvalidRollingStock {
+    public static RollingStock parse(RJSRollingStock rjsRollingStock) {
         if (!rjsRollingStock.version.equals(RJSRollingStock.CURRENT_VERSION)) {
             throw new InvalidRollingStock(
                     String.format("Invalid rolling stock format version: got '%s' expected '%s'",
@@ -116,7 +116,7 @@ public class RJSRollingStockParser {
 
     private static Map<LoadState, Double> parseMasses(
             RJSRollingStock rjsRollingStock
-    ) throws InvalidRollingStock {
+    ) {
         Map<LoadState, Double> masses = new HashMap<>();
         for (int i = 0; i < rjsRollingStock.masses.length; i++) {
             var rjsTrainMass = rjsRollingStock.masses[i];
@@ -128,7 +128,7 @@ public class RJSRollingStockParser {
 
     private static RJSRollingResistance.Davis parseRollingResistance(
             RJSRollingResistance rjsRollingResistance
-    ) throws InvalidRollingStock {
+    ) {
         if (rjsRollingResistance.getClass() != RJSRollingResistance.Davis.class)
             throw new InvalidRollingStockField("rolling_resistance", "unsupported rolling resistance type");
         return (RJSRollingResistance.Davis) rjsRollingResistance;
@@ -136,7 +136,7 @@ public class RJSRollingStockParser {
 
     // these are commented as they'll be used soon for profiles
 
-    private static LoadState parseLoad(RJSLoadState loadState) throws InvalidRollingStock {
+    private static LoadState parseLoad(RJSLoadState loadState) {
         switch (loadState) {
             case NORMAL_LOAD:
                 return LoadState.NORMAL_LOAD;
@@ -154,7 +154,7 @@ public class RJSRollingStockParser {
 
     private static RollingStock.TractiveEffortPoint parseTractiveEffortPoint(
             float[] effortCurvePoint
-    ) throws InvalidRollingStockField {
+    ) {
         if (effortCurvePoint.length != 2)
             throw new InvalidRollingStockField("effort_curves", "wrong tuple size");
 

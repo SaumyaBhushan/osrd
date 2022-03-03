@@ -48,11 +48,11 @@ public final class RJSObjectRef<T extends Identified> {
     }
 
 
-    private <U> U parseRef(Map<String, U> cachedObjects, String expectedType) throws InvalidInfraException {
+    private <U> U parseRef(Map<String, U> cachedObjects, String expectedType) {
         return parseRef(cachedObjects, Set.of(expectedType));
     }
 
-    private <U> U parseRef(Map<String, U> cachedObjects, Set<String> expectedTypes) throws InvalidInfraException {
+    private <U> U parseRef(Map<String, U> cachedObjects, Set<String> expectedTypes) {
         if (!expectedTypes.contains(type))
             throw new InvalidInfraException(String.format(
                     "Mismatched ref type: expected %s, got (type=%s, id=%s)",
@@ -61,27 +61,27 @@ public final class RJSObjectRef<T extends Identified> {
         return cachedObjects.get(id.id);
     }
 
-    public TrackSection getTrack(Map<String, TrackSection> tracks) throws InvalidInfraException {
+    public TrackSection getTrack(Map<String, TrackSection> tracks) {
         return parseRef(tracks, "TrackSection");
     }
 
-    public Route getRoute(Map<String, Route> routes) throws InvalidInfraException {
+    public Route getRoute(Map<String, Route> routes) {
         return parseRef(routes, "Route");
     }
 
-    public TrackBuilder getTrackBuilder(Map<String, TrackBuilder> tracks) throws InvalidInfraException {
+    public TrackBuilder getTrackBuilder(Map<String, TrackBuilder> tracks) {
         return parseRef(tracks, "TrackSection");
     }
 
-    public Detector getDetector(HashMap<String, Waypoint> waypoints) throws InvalidInfraException {
+    public Detector getDetector(HashMap<String, Waypoint> waypoints) {
         return (Detector) parseRef(waypoints, "Detector");
     }
 
-    public Waypoint getWaypoint(HashMap<String, Waypoint> waypoints) throws InvalidInfraException {
+    public Waypoint getWaypoint(HashMap<String, Waypoint> waypoints) {
         return parseRef(waypoints, Set.of("Detector", "BufferStop"));
     }
 
-    public RJSSwitchType getSwitchType(HashMap<String, RJSSwitchType> switchTypeMap) throws InvalidInfraException {
+    public RJSSwitchType getSwitchType(HashMap<String, RJSSwitchType> switchTypeMap) {
         return parseRef(switchTypeMap, "SwitchType");
     }
 }

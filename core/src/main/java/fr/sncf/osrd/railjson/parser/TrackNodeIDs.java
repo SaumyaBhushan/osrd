@@ -33,7 +33,7 @@ public class TrackNodeIDs {
     public static TrackNodeIDs from(
             Iterable<RJSTrackSectionLink> links,
             Iterable<RJSTrackSection> trackSections
-    ) throws InvalidInfraException {
+    ) {
         var uf = new UnionFind();
         var endpointIDs = new HashMap<RJSTrackEndpoint, Integer>();
 
@@ -65,7 +65,7 @@ public class TrackNodeIDs {
     }
 
     /** Get the unique node identifier this endpoint is connected to. */
-    public int get(RJSTrackEndpoint endpoint) throws InvalidInfraException {
+    public int get(RJSTrackEndpoint endpoint) {
         Integer index = endpointIDs.get(endpoint);
 
         if (index == null)

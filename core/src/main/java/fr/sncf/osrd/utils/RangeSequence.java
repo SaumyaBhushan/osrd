@@ -317,7 +317,7 @@ public class RangeSequence<E> extends SortedSequence<E> {
         /**
          * Flush the content of the builder into the RangeSequence.
          */
-        public void build() throws InvalidInfraException {
+        public void build() {
             double previousRightBound = 0;
             for (var mapEntry : data.entrySet()) {
                 var range = mapEntry.getKey();

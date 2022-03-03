@@ -42,7 +42,7 @@ public class RouteGraphTest {
             EdgeDirection entryDirection,
             SortedArraySet<TVDSection> tvdSections,
             HashMap<Switch, String> switchGroups
-    ) throws InvalidInfraException {
+    ) {
         // Create a "flexible transit" release group
         var releaseDetectors = new HashSet<Waypoint>();
         for (int i = 1; i < waypoints.size() - 1; i++)
@@ -58,7 +58,7 @@ public class RouteGraphTest {
             ArrayList<Waypoint> waypoints,
             EdgeDirection entryDirection,
             SortedArraySet<TVDSection> tvdSections
-    ) throws InvalidInfraException {
+    ) {
         return makeRoute(builder, id, waypoints, entryDirection, tvdSections, null);
     }
 
@@ -71,7 +71,7 @@ public class RouteGraphTest {
      *         R2
      */
     @Test
-    public void simpleRouteGraphBuild() throws InvalidInfraException {
+    public void simpleRouteGraphBuild() {
         // Craft trackGraph
         var trackGraph = new TrackGraph();
         var nodeA = trackGraph.makePlaceholderNode("A");
@@ -131,7 +131,7 @@ public class RouteGraphTest {
      */
 
     @Test
-    public void complexRouteGraphBuild() throws InvalidInfraException {
+    public void complexRouteGraphBuild() {
         // Craft trackGraph
         var trackGraph = new TrackGraph();
         var nodeA = trackGraph.makePlaceholderNode("A");
@@ -281,7 +281,7 @@ public class RouteGraphTest {
      */
     @Test
     @SuppressWarnings("checkstyle:VariableDeclarationUsageDistance")
-    public void triangularTVDSection() throws InvalidInfraException {
+    public void triangularTVDSection() {
         // Craft trackGraph
         var trackGraph = new TrackGraph();
         var nodeInnerA = trackGraph.makePlaceholderNode("innerA");

@@ -17,14 +17,14 @@ public class GeoData {
     }
 
     /** Get the geo data as a point */
-    public List<Double> getPoint() throws InvalidInfraException {
+    public List<Double> getPoint() {
         if (!type.equals("Point"))
             throw new InvalidInfraException("Invalid geo type, expected Point, got " + type);
         return coordinates.get(0);
     }
 
     /** Get the geo data as a sequence of points */
-    public List<List<Double>> getLine() throws InvalidInfraException {
+    public List<List<Double>> getLine() {
         if (!type.equals("LineString"))
             throw new InvalidInfraException("Invalid geo type, expected LineString, got " + type);
         return coordinates;

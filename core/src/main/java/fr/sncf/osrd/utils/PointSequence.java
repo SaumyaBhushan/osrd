@@ -123,11 +123,11 @@ public final class PointSequence<E> extends SortedSequence<E> implements Iterabl
         }
 
         public interface DuplicateConsumer<E> {
-            void registerDuplicates(List<E> dups) throws InvalidInfraException;
+            void registerDuplicates(List<E> dups);
         }
 
         /** Builds the PointSequence, ensuring unicity. */
-        public void buildUnique(DuplicateConsumer<E> duplicatesConsumer) throws InvalidInfraException {
+        public void buildUnique(DuplicateConsumer<E> duplicatesConsumer) {
             for (var mapEntry : data.entrySet()) {
                 var position = mapEntry.getKey();
                 var values = mapEntry.getValue();

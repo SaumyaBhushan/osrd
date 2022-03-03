@@ -49,7 +49,7 @@ public class TrainPath {
             List<Route> routePath,
             TrackSectionLocation startLocation,
             TrackSectionLocation endLocation
-    ) throws InvalidSchedule {
+    ) {
         ArrayList<TrackSectionRange> trackSectionPath;
         try {
             trackSectionPath = Route.routesToTrackSectionRange(routePath, startLocation, endLocation);
@@ -69,7 +69,7 @@ public class TrainPath {
     }
 
     /** Build Train Path from an RailJSON train path */
-    public static TrainPath from(Infra infra, RJSTrainPath rjsTrainPath) throws InvalidSchedule {
+    public static TrainPath from(Infra infra, RJSTrainPath rjsTrainPath) {
         try {
             var routePath = new ArrayList<Route>();
             for (var rjsRoutePath : rjsTrainPath.routePath)
@@ -98,7 +98,7 @@ public class TrainPath {
         return tvdSectionPaths;
     }
 
-    private void validate() throws InvalidSchedule {
+    private void validate() {
         for (int i = 1; i < routePath.size(); i++)
             if (routePath.get(i).id.equals(routePath.get(i - 1).id))
                 throw new InvalidSchedule("Train path contains duplicate routes");
@@ -146,7 +146,7 @@ public class TrainPath {
     }
 
 
-    private <T> void assertUnique(List<T> elements, String type, Function<T, String> toId) throws InvalidSchedule {
+    private <T> void assertUnique(List<T> elements, String type, Function<T, String> toId) {
         var seen = new HashSet<String>();
         for (var element : elements) {
             var str = toId.apply(element);

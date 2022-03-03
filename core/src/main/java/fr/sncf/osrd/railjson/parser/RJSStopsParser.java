@@ -11,8 +11,7 @@ import java.util.List;
 
 public class RJSStopsParser {
     /** Parse a list of RJS stops given an infra and a path */
-    public static List<TrainStop> parse(RJSTrainStop[] stops, Infra infra, TrainPath path)
-            throws InvalidSchedule {
+    public static List<TrainStop> parse(RJSTrainStop[] stops, Infra infra, TrainPath path) {
         var res = new ArrayList<TrainStop>();
         if (stops == null) {
             throw new InvalidSchedule("The train schedule must have at least one train stop");

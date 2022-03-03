@@ -64,7 +64,7 @@ public class RouteGraph extends DirNGraph<Route, Waypoint> {
                 Signal entrySignal,
                 EdgeDirection entryDirection,
                 Set<Waypoint> releaseDetectors
-        ) throws InvalidInfraException {
+        ) {
             try {
                 var tvdSectionsPath = generatePath(id, entryPoint, exitPoint, entryDirection, switchesGroup);
 
@@ -133,7 +133,7 @@ public class RouteGraph extends DirNGraph<Route, Waypoint> {
                 Waypoint exitWaypoint,
                 EdgeDirection entryDirection,
                 HashMap<Switch, String> switchPositions
-        ) throws InvalidInfraException {
+        ) {
             var res = new ArrayList<TVDSectionPath>();
 
             var curDirection = entryDirection;
@@ -247,7 +247,7 @@ public class RouteGraph extends DirNGraph<Route, Waypoint> {
                 TrackSection edge,
                 EdgeDirection direction,
                 HashMap<Switch, String> switchPositions
-        ) throws InvalidInfraException {
+        ) {
             var trackSectionEndNode = direction == START_TO_STOP ? edge.endNode : edge.startNode;
             var neighbors = direction == START_TO_STOP ? edge.endNeighbors : edge.startNeighbors;
             if (neighbors.size() == 0)

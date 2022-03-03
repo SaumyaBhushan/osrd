@@ -23,7 +23,7 @@ public class RJSStandaloneTrainScheduleParser {
             RJSStandaloneTrainSchedule rjsTrainSchedule,
             TrainPath trainPath,
             EnvelopePath envelopePath
-    ) throws InvalidSchedule {
+    ) {
         var rollingStockID = rjsTrainSchedule.rollingStock;
         var rollingStock = rollingStockGetter.apply(rollingStockID);
         if (rollingStock == null)
@@ -56,7 +56,7 @@ public class RJSStandaloneTrainScheduleParser {
             RollingStock rollingStock,
             EnvelopePath envelopePath,
             RJSAllowance rjsAllowance
-    ) throws InvalidSchedule {
+    ) {
         if (rjsAllowance.getClass() == RJSAllowance.Construction.class) {
             var rjsConstruction = (RJSAllowance.Construction) rjsAllowance;
             if (Double.isNaN(rjsConstruction.beginPosition))
@@ -86,7 +86,7 @@ public class RJSStandaloneTrainScheduleParser {
     }
 
     @SuppressFBWarnings({"BC_UNCONFIRMED_CAST"})
-    private static AllowanceValue parseAllowanceValue(RJSAllowanceValue rjsValue) throws InvalidSchedule {
+    private static AllowanceValue parseAllowanceValue(RJSAllowanceValue rjsValue) {
         if (rjsValue.getClass() == RJSAllowanceValue.TimePerDistance.class) {
             var rjsTimePerDist = (RJSAllowanceValue.TimePerDistance) rjsValue;
             if (Double.isNaN(rjsTimePerDist.minutes))

@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
 
 public class Helpers {
     /** Parse all serialized .json rolling stock files and add these to the given map */
-    public static List<RJSRollingStock> parseRollingStockDir(Path dirPath) throws IOException, InvalidRollingStock {
+    public static List<RJSRollingStock> parseRollingStockDir(Path dirPath) throws IOException {
         var jsonMatcher = FileSystems.getDefault().getPathMatcher("glob:**.json");
         var rollingStocksPaths = Files.list(dirPath)
                 .filter((path) -> path.toFile().isFile())
@@ -32,7 +32,7 @@ public class Helpers {
         return res;
     }
 
-    public static List<RJSRollingStock> getExampleRollingStocks() throws InvalidRollingStock, IOException {
+    public static List<RJSRollingStock> getExampleRollingStocks() throws IOException {
         return parseRollingStockDir(getResourcePath("rolling_stocks/"));
     }
 

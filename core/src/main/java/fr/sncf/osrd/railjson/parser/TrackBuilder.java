@@ -22,7 +22,7 @@ public class TrackBuilder {
     }
 
     /** Calls all the build methods */
-    public void build() throws InvalidInfraException {
+    public void build() {
         opBuilder.build();
         signalsBuilder.build();
         waypointsBuilder.buildUnique((duplicates) -> {

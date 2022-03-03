@@ -143,7 +143,7 @@ public class InfraManager {
     }
 
     @SuppressFBWarnings({"RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE", "NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE"})
-    private Infra downloadInfra(InfraCacheEntry cacheEntry, String infraId) throws InfraLoadException {
+    private Infra downloadInfra(InfraCacheEntry cacheEntry, String infraId) {
         // create a request
         var endpointUrl = String.format("%sinfra/%s/railjson/", baseUrl, infraId);
         var request = buildRequest(endpointUrl);
@@ -187,7 +187,7 @@ public class InfraManager {
 
     /** Load an infra given an id. Cache infra for optimized future call */
     @SuppressFBWarnings({"REC_CATCH_EXCEPTION"})
-    public Infra load(String infraId) throws InfraLoadException, InterruptedException {
+    public Infra load(String infraId) throws InterruptedException {
         try {
             var prevCacheEntry = infraCache.putIfAbsent(infraId, new InfraCacheEntry());
             var cacheEntry = infraCache.get(infraId);

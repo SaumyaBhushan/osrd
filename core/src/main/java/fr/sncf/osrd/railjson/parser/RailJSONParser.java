@@ -26,10 +26,8 @@ public class RailJSONParser {
      * @param source a data stream to read from
      * @param lenient whether to tolerate invalid yet understandable json constructs
      * @return an OSRD infrastructure
-     * @throws InvalidInfraException {@inheritDoc}
-     * @throws IOException {@inheritDoc}
      */
-    public static Infra parse(BufferedSource source, boolean lenient) throws InvalidInfraException, IOException {
+    public static Infra parse(BufferedSource source, boolean lenient) throws IOException {
         var jsonReader = JsonReader.of(source);
         jsonReader.setLenient(lenient);
         var railJSON = RJSInfra.adapter.fromJson(jsonReader);
@@ -43,7 +41,7 @@ public class RailJSONParser {
      * @param railJSON a railJSON infrastructure
      * @return an OSRD infrastructure
      */
-    public static Infra parse(RJSInfra railJSON) throws InvalidInfraException {
+    public static Infra parse(RJSInfra railJSON) {
         if (!railJSON.version.equals(RJSInfra.CURRENT_VERSION)) {
             throw new InvalidInfraException(
                     String.format("Invalid railjson format version: got '%s' expected '%s'",
@@ -225,8 +223,7 @@ public class RailJSONParser {
             TrackGraph trackGraph,
             TrackNodeIDs nodeIDs,
             RJSTrackSection trackSection
-    )
-            throws InvalidInfraException {
+    ) {
         var beginID = nodeIDs.get(trackSection.beginEndpoint());
         var endID = nodeIDs.get(trackSection.endEndpoint());
         var trackLine = trackSection.sch == null ? null : trackSection.sch.getLine();
@@ -281,7 +278,7 @@ public class RailJSONParser {
             HashMap<String, Signal> detectorIdToSignalNormalMap,
             HashMap<String, Signal> detectorIdToSignalReverseMap,
             RJSRoute rjsRoute
-    ) throws InvalidInfraException {
+    ) {
         // Parse route path
         var path = new ArrayList<TrackSectionRange>();
         for (var step : rjsRoute.path) {
@@ -323,8 +320,7 @@ public class RailJSONParser {
     }
 
     private static void addSwitchPosition(TrackSectionRange prev, TrackSectionRange next,
-                                          TrackGraph trackGraph, HashMap<Switch, String> switchesGroup)
-            throws InvalidInfraException {
+                                          TrackGraph trackGraph, HashMap<Switch, String> switchesGroup) {
         if (prev.edge.id.equals(next.edge.id))
             return;
         var nodeId = prev.edge.getEndNode(prev.direction);
@@ -352,7 +348,7 @@ public class RailJSONParser {
             HashMap<String, Switch> switchNames,
             HashMap<String, TrackSection> infraTrackSections,
             HashMap<String, RJSSwitchType> switchTypeMap
-    ) throws InvalidInfraException {
+    ) {
         var switchRef = switchNames.get(rjsSwitch.id);
         var portMap = new HashMap<String, Switch.Port>();
         for (var entry : rjsSwitch.ports.entrySet()) {

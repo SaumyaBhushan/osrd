@@ -96,7 +96,7 @@ public final class Infra {
             ArrayList<TVDSection> tvdSections,
             ArrayList<Signal> signals,
             ArrayList<Switch> switches
-    ) throws InvalidInfraException {
+    ) {
         return new Infra(trackGraph, routeGraph, tvdSections, signals, switches);
     }
 
@@ -122,7 +122,7 @@ public final class Infra {
             value = "RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE",
             justification = "that's a spotbugs bug :)"
     )
-    public static Infra parseFromFile(String path) throws InvalidInfraException, IOException {
+    public static Infra parseFromFile(String path) throws IOException {
         var rjsInfra = parseRailJSONFromFile(path);
         return RailJSONParser.parse(rjsInfra);
     }

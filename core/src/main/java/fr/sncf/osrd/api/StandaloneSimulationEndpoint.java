@@ -61,11 +61,7 @@ public class StandaloneSimulationEndpoint implements Take {
     }
 
     @Override
-    public Response act(Request req) throws
-            IOException,
-            InvalidRollingStock,
-            InvalidSchedule,
-            InvalidInfraException {
+    public Response act(Request req) throws IOException {
         try {
             // Parse request input
             var body = new RqPrint(req).printBody();
@@ -267,7 +263,7 @@ public class StandaloneSimulationEndpoint implements Take {
                 RJSTrainPath rjsTrainPath,
                 StandaloneTrainSchedule schedule,
                 Infra infra
-        ) throws InvalidInfraException {
+        ) {
             assert envelope.continuous;
             // Compute speeds, head and tail positions
             var trainLength = schedule.rollingStock.length;
