@@ -12,6 +12,7 @@ import fr.sncf.osrd.new_infra.api.Direction;
 import fr.sncf.osrd.new_infra.api.reservation.*;
 import fr.sncf.osrd.new_infra.api.tracks.directed.DiTrackInfra;
 import fr.sncf.osrd.new_infra.api.tracks.undirected.TrackObject;
+import fr.sncf.osrd.new_infra.implementation.GraphHelpers;
 import fr.sncf.osrd.new_infra.implementation.RJSObjectParsing;
 import fr.sncf.osrd.new_infra.implementation.tracks.directed.DirectedInfraBuilder;
 import fr.sncf.osrd.new_infra.implementation.tracks.directed.TrackRangeView;
@@ -91,8 +92,9 @@ public class ReservationInfraBuilder {
                 = HashMultimap.<DetectionSection, ReservationRouteImpl>create();
         var routes = new ArrayList<ReservationRouteImpl>();
         for (var rjsRoute : rjsInfra.routes) {
+            var trackRanges = makeTrackRanges(rjsRoute);
             var route = new ReservationRouteImpl(detectorsOnRoute(rjsRoute), releasePoints(rjsRoute),
-                    rjsRoute.id, makeTrackRanges(rjsRoute));
+                    rjsRoute.id, trackRanges, isPassive(rjsRoute, trackRanges));
             routes.add(route);
             for (var section : sectionsOnRoute(rjsRoute)) {
                 routesPerSection.put(section, route);
@@ -116,6 +118,23 @@ public class ReservationInfraBuilder {
             );
         }
         return networkBuilder.build();
+    }
+
+    /** Returns true if the route is passive */
+    private boolean isPassive(RJSRoute route, ImmutableList<TrackRangeView> trackPath) {
+        if (route.isControlled != null)
+            return !route.isControlled;
+        for (int i = 1; i < trackPath.size(); i++) {
+            var prev = trackPath.get(i - 1).track.getEdge();
+            var next = trackPath.get(i).track.getEdge();
+            if (prev != next) {
+                var node = GraphHelpers.getCommonNode(diTrackInfra.getTrackGraph(), prev, next);
+                var isSwitch = diTrackInfra.getTrackGraph().degree(node) > 2;
+                if (isSwitch)
+                    return false;
+            }
+        }
+        return true;
     }
 
     private ImmutableList<TrackRangeView> makeTrackRanges(RJSRoute rjsRoute) {

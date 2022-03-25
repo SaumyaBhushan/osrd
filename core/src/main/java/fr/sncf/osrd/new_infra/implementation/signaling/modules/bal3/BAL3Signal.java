@@ -53,6 +53,11 @@ public class BAL3Signal implements Signal<BAL3SignalState> {
             // All routes starting from this signal are blocked -> red
             return new BAL3SignalState(BAL3.Aspect.RED);
 
+        if (!reservedRoute.getInfraRoute().isPassive()
+                && !state.getState(reservedRoute.infraRoute()).summarize().equals(RESERVED))
+            // Controlled route with no reservation -> red
+            return new BAL3SignalState(BAL3.Aspect.RED);
+
         if (reservedRoute.exitSignal() != null) {
             var nextSignal = signalization.getSignalState(reservedRoute.exitSignal());
             if (nextSignal instanceof BAL3SignalState nextSignalState)
@@ -60,7 +65,7 @@ public class BAL3Signal implements Signal<BAL3SignalState> {
                     // Next signal is red -> yellow
                     return new BAL3SignalState(BAL3.Aspect.YELLOW);
         }
-        // TODO default to red for requested routes
+        // No reason to show anything but green
         return new BAL3SignalState(BAL3.Aspect.GREEN);
     }
 

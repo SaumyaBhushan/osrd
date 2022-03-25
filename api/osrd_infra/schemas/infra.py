@@ -104,6 +104,7 @@ class Route(BaseObjectTrait):
     exit_point: ObjectReference
     release_detectors: List[ObjectReference]
     path: List[DirectionalTrackRange]
+    is_controlled: Optional[bool]
 
 
 class SwitchPortConnection(BaseModel):

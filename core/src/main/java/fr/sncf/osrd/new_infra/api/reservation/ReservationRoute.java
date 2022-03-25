@@ -22,4 +22,7 @@ public interface ReservationRoute {
 
     /** Returns the route length (m) */
     double getLength();
+
+    /** Returns true if the route is passive: it doesn't need to be explicitly requested */
+    boolean isPassive();
 }

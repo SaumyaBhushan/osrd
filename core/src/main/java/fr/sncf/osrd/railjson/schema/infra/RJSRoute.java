@@ -25,6 +25,10 @@ public class RJSRoute implements Identified {
     @Json(name = "exit_point")
     public RJSObjectRef<RJSRouteWaypoint> exitPoint;
 
+    /** If true, the route needs to be explicitly requested. If unspecified, set to true if it covers a switch */
+    @Json(name = "is_controlled")
+    public Boolean isControlled;
+
     /** Routes are described as a list of TVD Sections, Switches in specific positions, and an entry point */
     public RJSRoute(
             String id,
