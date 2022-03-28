@@ -5,7 +5,7 @@ import com.google.common.collect.ImmutableMultimap;
 import fr.sncf.osrd.new_infra.api.reservation.ReservationInfra;
 import fr.sncf.osrd.new_infra.api.reservation.ReservationRoute;
 import fr.sncf.osrd.railjson.schema.infra.RJSInfra;
-import fr.sncf.osrd.railjson.schema.infra.trackobjects.RJSSignal;
+import fr.sncf.osrd.railjson.schema.infra.signaling.RJSSignal;
 
 public interface SignalingModule {
     ImmutableMap<RJSSignal, Signal<? extends SignalState>> createSignals(

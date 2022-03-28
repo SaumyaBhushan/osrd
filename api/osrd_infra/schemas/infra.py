@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import List, Literal, Mapping, Optional
+from typing import List, Literal, Mapping, Optional, Any
 
 from geojson_pydantic import LineString
 from pydantic import BaseModel, constr, root_validator
@@ -180,6 +180,7 @@ class Signal(BaseObjectTrait, TrackLocationTrait):
     label: Optional[str]
     installation_type: Optional[str]
     value: Optional[str]
+    signaling_data: List[Any]
 
 
 class BufferStop(BaseObjectTrait, TrackLocationTrait):

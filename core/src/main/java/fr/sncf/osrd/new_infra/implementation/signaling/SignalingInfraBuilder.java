@@ -10,7 +10,7 @@ import fr.sncf.osrd.new_infra.api.reservation.ReservationRoute;
 import fr.sncf.osrd.new_infra.api.signaling.*;
 import fr.sncf.osrd.new_infra.implementation.reservation.ReservationInfraBuilder;
 import fr.sncf.osrd.railjson.schema.infra.RJSInfra;
-import fr.sncf.osrd.railjson.schema.infra.trackobjects.RJSSignal;
+import fr.sncf.osrd.railjson.schema.infra.signaling.RJSSignal;
 import java.util.Set;
 import java.util.function.Function;
 

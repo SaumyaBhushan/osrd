@@ -8,7 +8,7 @@ import fr.sncf.osrd.new_infra.api.signaling.SignalState;
 import fr.sncf.osrd.new_infra.api.signaling.SignalingInfra;
 import fr.sncf.osrd.new_infra.api.signaling.SignalingRoute;
 import fr.sncf.osrd.new_infra.implementation.reservation.ReservationInfraImpl;
-import fr.sncf.osrd.railjson.schema.infra.trackobjects.RJSSignal;
+import fr.sncf.osrd.railjson.schema.infra.signaling.RJSSignal;
 
 public class SignalingInfraImpl extends ReservationInfraImpl implements SignalingInfra {
 

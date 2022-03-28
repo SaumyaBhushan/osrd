@@ -1,9 +1,11 @@
-package fr.sncf.osrd.railjson.schema.infra.trackobjects;
+package fr.sncf.osrd.railjson.schema.infra.signaling;
 
 import com.squareup.moshi.Json;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import fr.sncf.osrd.railjson.schema.common.Identified;
 import fr.sncf.osrd.railjson.schema.common.RJSObjectRef;
+import fr.sncf.osrd.railjson.schema.infra.trackobjects.RJSTrackObject;
+import fr.sncf.osrd.railjson.schema.infra.trackobjects.RJSTrainDetector;
 import fr.sncf.osrd.utils.graph.EdgeDirection;
 
 @SuppressFBWarnings({"UWF_UNWRITTEN_PUBLIC_OR_PROTECTED_FIELD"})

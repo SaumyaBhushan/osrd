@@ -1,12 +1,11 @@
 package fr.sncf.osrd.new_infra.api.signaling;
 
-import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.graph.ImmutableNetwork;
 import fr.sncf.osrd.new_infra.api.reservation.DiDetector;
 import fr.sncf.osrd.new_infra.api.reservation.ReservationRoute;
 import fr.sncf.osrd.new_infra.api.reservation.ReservationInfra;
-import fr.sncf.osrd.railjson.schema.infra.trackobjects.RJSSignal;
+import fr.sncf.osrd.railjson.schema.infra.signaling.RJSSignal;
 
 public interface SignalingInfra extends ReservationInfra {
     /** Returns a mapping from RailJSON signals to loaded signals */
