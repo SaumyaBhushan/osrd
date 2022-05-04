@@ -2,7 +2,7 @@ package fr.sncf.osrd.api;
 
 import static fr.sncf.osrd.railjson.parser.RJSParser.parseRailJSONFromFile;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.lenient;
 
 import fr.sncf.osrd.Helpers;
 import fr.sncf.osrd.infra.implementation.signaling.SignalingInfraBuilder;
@@ -26,7 +26,7 @@ public class ApiTest {
     @BeforeEach
     public void setUp() throws InterruptedException {
         ArgumentCaptor<String> argument = ArgumentCaptor.forClass(String.class);
-        when(infraHandlerMock.load(argument.capture(), any(), any())).thenAnswer(
+        lenient().when(infraHandlerMock.load(argument.capture(), any(), any())).thenAnswer(
                 invocation ->
                         SignalingInfraBuilder.fromRJSInfra(
                                 parseRailJSONFromFile(
